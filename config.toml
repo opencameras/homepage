@@ -1,0 +1,69 @@
+baseurl = "https://opencameras.github.io"
+DefaultContentLanguage = "en"
+title = "Open API for Cameras"
+theme = "beautifulhugo"
+metaDataFormat = "yaml"
+pygmentsStyle = "trac"
+pygmentsUseClasses = true
+pygmentsCodeFences = true
+pygmentsCodefencesGuessSyntax = true
+#pygmentsUseClassic = true
+#pygmentOptions = "linenos=inline"
+disqusShortname = "OpenCamera"
+#googleAnalytics = "XXX"
+
+[Params]
+  homeTitle = "Open API, Open Camera" # Set a different text for the header on the home page
+  subtitle = "Privacy matters, and openness is mandatory"
+  mainSections = ["post","posts"]
+  logo = "img/avatar-icon.png" # Expecting square dimensions
+  favicon = "img/favicon.ico"
+  dateFormat = "January 2, 2006"
+  commit = false
+  rss = false
+  comments = false
+  readingTime = true
+  wordCount = true
+  useHLJS = true
+  socialShare = false
+  delayDisqus = true
+  showRelatedPosts = true
+#  hideAuthor = true
+#  gcse = "012345678901234567890:abcdefghijk" # Get your code from google.com/cse. Make sure to go to "Look and Feel" and change Layout to "Full Width" and Theme to "Classic"
+
+#[[Params.bigimg]]
+#  src = "img/triangle.jpg"
+#  desc = "Triangle"
+#[[Params.bigimg]]
+#  src = "img/sphere.jpg"
+#  desc = "Sphere"
+#  # position: see values of CSS background-position.
+#  position = "center top"
+#[[Params.bigimg]]
+#  src = "img/hexagon.jpg"
+#  desc = "Hexagon"
+
+[Author]
+  name = "Some Person"
+  website = "lomorage.com"
+  github = "opencameras"
+
+[[menu.main]]
+    name = "Blog"
+    url = ""
+    weight = 1
+
+[[menu.main]]
+    name = "API"
+    url = "api"
+    weight = 2
+
+[[menu.main]]
+    name = "FAQ"
+    url = "page/faq/"
+    weight = 3
+
+[[menu.main]]
+    name = "About"
+    url = "page/about/"
+    weight = 4
