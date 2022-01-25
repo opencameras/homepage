@@ -13,16 +13,15 @@ tags:
     description: Camera audio and video operation
 securityDefinitions:
   basicAuth:
+    # This scheme uses the header: "Authorization: Basic {base64 encoded string defined by username:password:device}"
+    # Scopes are not supported with this type of authorization.
     type: basic
-  bearerAuth:
-    type: oauth2
-    # The flow and URLs in spec are for documentary purpose: go-swagger does not implement OAuth workflows
-    flow: accessCode
-    authorizationUrl: 'https://dummy.oauth.net/auth'
-    tokenUrl: 'https://dummy.oauth.net/token'
-    scopes:
-      moderate: ignore token if no user is created yet
-      strict: strict validate token
+  key:
+    # This scheme uses the header: "X-Token: {base64 encoded string}"
+    # Scopes are not supported with this type of authorization.
+    type: apiKey
+    in: header
+    name: x-token
 paths:
   /device:
     get:
@@ -41,7 +40,7 @@ paths:
         '401':
           description: Access token is missing or invalid
       security:
-        - bearerAuth: [strict]
+        - key: []
   /system:
     get:
       tags:
@@ -59,7 +58,7 @@ paths:
         '401':
           description: Access token is missing or invalid
       security:
-        - bearerAuth: [strict]
+        - key: []
   /system/upgrade:
     post:
       tags:
@@ -80,13 +79,13 @@ paths:
         '401':
           description: Access token is missing or invalid
       security:
-        - bearerAuth: [strict]
+        - key: []
   /user:
     post:
       tags:
         - user
       summary: Create user
-      description: This can only be done by the logged in user. Only one user is supported.
+      description: Only one user is supported.
       operationId: createUser
       produces:
         - application/json
@@ -101,30 +100,52 @@ paths:
         '200':
           description: successful operation
       security:
-        - bearerAuth: [moderate]
-  /user/login:
+        - key: []
+  /user/token/obtain:
     post:
       tags:
         - user
-      summary: Logs user into the system
+      summary: Logs user into the system and obtain token
       description: ''
-      operationId: loginUser
-      parameters:
-        - in: body
-          name: body
-          description: User login object
-          required: true
-          schema:
-            $ref: '#/definitions/UserLogin'
+      operationId: tokenObtain
       responses:
         '200':
-          description: Encoded JWT string
+          description: Encoded token
           schema:
-            type: string
+            properties:
+              access_token:
+                type: string
+                format: string
+              valid_until:
+                type: string
+                format: date
+                description: token is valid until this specified date in UTC.
+                example: 2022-02-02T00:00:00Z
         '400':
           description: Invalid username/password supplied
       security:
         - basicAuth: []
+  /user/token/refresh:
+    post:
+      tags:
+        - user
+      summary: Refresh token
+      description: ''
+      operationId: tokenRefresh
+      responses:
+        '200':
+          description: New extend date
+          schema:
+            properties:
+              valid_until:
+                type: string
+                format: date
+                description: token is valid until this specified date in UTC.
+                example: 2022-02-02T00:00:00Z
+        '400':
+          description: Invalid username/password supplied
+      security:
+        - key: []
   /user/logout:
     get:
       tags:
@@ -139,7 +160,7 @@ paths:
         '401':
           description: Access token is missing or invalid
       security:
-        - bearerAuth: [strict]
+        - key: []
   /user/reset:
     put:
       tags:
@@ -161,7 +182,7 @@ paths:
         '200':
           description: successful operation
       security:
-        - bearerAuth: [strict]
+        - key: []
   /media/sdp:
     get:
       tags:
@@ -175,7 +196,7 @@ paths:
           schema:
             $ref: '#/definitions/SDP'
       security:
-        - bearerAuth: [strict]
+        - key: []
   /media/stubservers:
     put:
       tags:
@@ -197,7 +218,7 @@ paths:
         '200':
           description: successful operation
       security:
-        - bearerAuth: [strict]
+        - key: []
   /media/live/session:
     post:
       tags:
@@ -216,7 +237,7 @@ paths:
         '200':
           description: successful operation
       security:
-        - bearerAuth: [strict]
+        - key: []
   /media/vod/{start}/{end}:
     get:
       tags:
@@ -241,7 +262,7 @@ paths:
         '200':
           description: successful operation
       security:
-        - bearerAuth: [strict]
+        - key: []
 definitions:
   DeviceInfo:
     type: object
@@ -324,14 +345,5 @@ definitions:
         type: string
         example: 12345
       phone:
-        type: string
-        example: '12345'
-  UserLogin:
-    type: object
-    properties:
-      email:
-        type: string
-        example: john@email.com
-      password:
         type: string
         example: '12345'
