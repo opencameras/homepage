@@ -9,9 +9,9 @@ As developers, we have a dream that one day my home security cameras can have **
 - integrate with my smart home solution as I want
 - have more freedom and invent new things
 
-## Reference Camera Specification
+## The 1st Open Camera Specification
 
-Reference cameras has below specifications:
+Below specification is for the 1st open camera we like to build:
  - Video Resolution: 1080p
  - Video FPS: 30
  - Video codec: H.264, H.265
