@@ -63,15 +63,15 @@ unsafe= true
 
 [[menu.main]]
     name = "FAQ"
-    url = "page/faq/"
+    url = "page/faq"
     weight = 3
 
 [[menu.main]]
     name = "Survey"
-    url = "page/survey/"
+    url = "page/survey"
     weight = 4
 
 [[menu.main]]
     name = "About"
-    url = "page/about/"
+    url = "page/about"
     weight = 5
