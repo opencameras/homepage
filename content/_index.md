@@ -9,7 +9,7 @@ As developers, we have a dream that one day my home security cameras can have **
 - integrate with my smart home solution as I want
 - have more freedom and invent new things
 
-## The 1st Open Reference Camera Specification
+## The 1st Webrtc based Open Reference Camera Specification
 
 Below specification is for the 1st reference open camera we like to build:
  - **FHD1080P & Night Vision**: High-quality image in 1080P resolution Day and night, and combined a 100° wide lens to cover more spaces clearly.
